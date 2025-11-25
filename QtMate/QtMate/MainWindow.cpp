@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 	setFixedSize(500, 800);
+	setWindowTitle("QtMate (Ultimate Tic-Tac-Toe) Ver. 0.001");
 }
 
 MainWindow::~MainWindow()
