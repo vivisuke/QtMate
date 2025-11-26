@@ -3,8 +3,7 @@
 
 void CentralWidget::paintEvent(QPaintEvent* event)
 {
-	qDebug() << "CentralWidget::paintEvent(QPaintEvent* event)";
-
+	//qDebug() << "CentralWidget::paintEvent(QPaintEvent* event)";
 	QPainter painter(this);
 
 	double ww = width();

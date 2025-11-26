@@ -29,4 +29,12 @@ void BoardWidget::paintEvent(QPaintEvent* event)
 	    painter.drawLine(xyToPoint(i, 0), xyToPoint(i, N_HORZ));
     }
 
+	painter.setPen(Qt::white);                                   // 文字色
+	painter.setFont(QFont("Meiryo UI", 12, QFont::Bold));
+    for(int x = 0; x < N_HORZ; ++x) {
+	    painter.drawText(xyToPoint(x, 0) + QPointF(CELL_WD*0.35, -6), QChar('a'+x));
+    }
+    for(int y = 0; y < N_HORZ; ++y) {
+	    painter.drawText(xyToPoint(0, y+1) + QPointF(-CELL_WD*0.5, -CELL_WD*0.3), QString::number(y + 1).rightJustified(2));
+    }
 }

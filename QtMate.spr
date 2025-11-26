@@ -6,7 +6,7 @@
 0004 ◎ C 11/26 11/26 0.001│ToDo│メインウィンドウタイトル：「Ultimate Tic-Tac-Toe」
 0005 ◎ C 11/26 11/26 0.001│ToDo│BoardWidget 設置
 0006 ◎ C 11/26 11/26 0.001│ToDo│BoardWidget：グリッド線描画
-0007 ● C 11/26            │ToDo│
+0007 ◎ C 11/26 11/26 0.001│ToDo│BoardWidget：座標値（'a'～'i', '1'～'9'）描画
 0008 ● C 11/26            │ToDo│
 0009 ● C 11/26            │ToDo│
 0010 ● C 11/26            │ToDo│
