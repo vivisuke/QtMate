@@ -2,5 +2,5 @@
   <Configurations>
     <Platform Name="x64" />
   </Configurations>
-  <Project Path="QtMate/QtMate.vcxproj" />
+  <Project Path="QtMate/QtMate.vcxproj" Id="2862ac00-3c92-43ab-b5d2-398156b36f4f" />
 </Solution>
