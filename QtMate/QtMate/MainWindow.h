@@ -1,7 +1,9 @@
 #pragma once
 
+#include <memory>           // std::unique_ptr
 #include <QtWidgets/QMainWindow>
 #include "ui_MainWindow.h"
+#include "Board.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindowClass; };
@@ -17,5 +19,6 @@ public:
 
 private:
     Ui::MainWindowClass *ui;
+    std::unique_ptr<Board> m_board;
 };
 

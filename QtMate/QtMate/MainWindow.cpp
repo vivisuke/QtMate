@@ -5,6 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindowClass())
 {
     ui->setupUi(this);
+    m_board = std::make_unique<Board>();
 	setFixedSize(500, 800);
 	setWindowTitle("QtMate (Ultimate Tic-Tac-Toe) Ver. 0.001");
 	ui->black->setStyleSheet("border-bottom: 6px solid yellow;");
