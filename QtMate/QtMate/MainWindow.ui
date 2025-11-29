@@ -210,16 +210,6 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="widget_2" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>20</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="BoardWidget" name="board" native="true">
       <property name="minimumSize">
        <size>
@@ -250,6 +240,12 @@
     </item>
     <item>
      <widget class="QLabel" name="label_3">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>60</height>
+       </size>
+      </property>
       <property name="font">
        <font>
         <pointsize>24</pointsize>
@@ -261,6 +257,9 @@
       </property>
       <property name="text">
        <string>Message Label</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft</set>
       </property>
      </widget>
     </item>
