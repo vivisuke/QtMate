@@ -1,4 +1,4 @@
-#include "Board.h"
+﻿#include "Board.h"
 
 void Board::init() {
 	for(auto& v: m_localBoard) v = EMPTY;

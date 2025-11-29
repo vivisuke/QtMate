@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 
 enum {
@@ -11,6 +11,10 @@ const int BOARD9_WD = 9;
 const int BOARD9_SIZE = BOARD9_WD * BOARD9_WD;
 
 using Color = char;
+
+struct Global {
+	Color	m_next = BLACK;		//	次の手番
+};
 
 class Board
 {
