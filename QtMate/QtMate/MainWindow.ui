@@ -38,7 +38,7 @@
       <property name="minimumSize">
        <size>
         <width>32</width>
-        <height>64</height>
+        <height>100</height>
        </size>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -314,7 +314,10 @@
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>images/rule_black.png</normaloff>images/rule_black.png</iconset>
+           <normaloff>images/rule_black.png</normaloff>
+           <activeoff>images/rule_gray.png</activeoff>
+           <selectedoff>images/rule_gray.png</selectedoff>
+           <selectedon>images/rule_gray.png</selectedon>images/rule_black.png</iconset>
          </property>
          <property name="iconSize">
           <size>
