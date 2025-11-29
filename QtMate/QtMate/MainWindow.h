@@ -17,6 +17,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+	void	onCellClicked(int x, int y);
+
+protected:
+	void buildConnections();
+
 private:
     Ui::MainWindowClass *ui;
     std::unique_ptr<class Board> m_board;

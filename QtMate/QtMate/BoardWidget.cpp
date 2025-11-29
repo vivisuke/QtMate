@@ -35,6 +35,11 @@ void BoardWidget::paintEvent(QPaintEvent* event)
 	    painter.drawText(xyToPoint(x, 0) + QPointF(CELL_WD*0.35, -6), QChar('a'+x));
     }
     for(int y = 0; y < N_HORZ; ++y) {
-	    painter.drawText(xyToPoint(0, y+1) + QPointF(-CELL_WD*0.5, -CELL_WD*0.3), QString::number(y + 1).rightJustified(2));
+	    painter.drawText(xyToPoint(0, y+1) + QPointF(-CELL_WD*0.35, -CELL_WD*0.3), QChar('1'+y));
+	    //painter.drawText(xyToPoint(0, y+1) + QPointF(-CELL_WD*0.5, -CELL_WD*0.3), QString::number(y + 1).rightJustified(2));
     }
+}
+void BoardWidget::mousePressEvent(QMouseEvent *event) {
+	qDebug() << "mousePressEvent(QMouseEvent *event)";
+	emit cellClicked(1, 23);
 }

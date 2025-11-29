@@ -22,6 +22,11 @@ protected:
 		return QPoint(x*CELL_WD+MARGIN, y*CELL_WD+MARGIN);
 	}
     void paintEvent(QPaintEvent* event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+
+signals:
+	void	cellClicked(int x, int y);
+    
 private:
     Board	*m_board = nullptr;
 };
