@@ -41,6 +41,12 @@ void MainWindow::updateNextColor() {
 
 void MainWindow::onCellClicked(int x, int y) {
 	qDebug() << QString("MainWindow::onCellClicked(%1, %2)").arg(x).arg(y);
+	if( x < 0 || x >= BOARD9_WD || y < 0 || y >= BOARD9_WD )
+		return;
+	if( m_board->get_color(x, y) != EMPTY )
+		return;
+	m_board->set_color(x, y, g.m_next);
 	g.m_next = BLACK+WHITE - g.m_next;
 	updateNextColor();
+	ui->board->update();
 }

@@ -1,6 +1,7 @@
 ﻿#include <QPainter>
 #include <QMouseEvent>
 #include <QDir.h>
+#include "Board.h"
 #include "BoardWidget.h"
 
 BoardWidget::BoardWidget(QWidget *parent) : QWidget(parent)
@@ -57,8 +58,17 @@ void BoardWidget::paintEvent(QPaintEvent* event)
 	    //painter.drawText(xyToPoint(0, y+1) + QPointF(-CELL_WD*0.5, -CELL_WD*0.3), QString::number(y + 1).rightJustified(2));
     }
 
-    painter.drawImage(xyToPoint(1, 1), m_image_o);
-    painter.drawImage(xyToPoint(4, 3), m_image_x);
+    //painter.drawImage(xyToPoint(1, 1), m_image_o);
+    //painter.drawImage(xyToPoint(4, 3), m_image_x);
+    for(int y = 0; y < N_HORZ; ++y) {
+	    for(int x = 0; x < N_HORZ; ++x) {
+	    	auto col = m_board->get_color(x, y);
+			if( col == BLACK )
+			    painter.drawImage(xyToPoint(x, y), m_image_o);
+			else if( col == WHITE )
+			    painter.drawImage(xyToPoint(x, y), m_image_x);
+	    }
+    }
 }
 void BoardWidget::mousePressEvent(QMouseEvent *event) {
 	qDebug() << "mousePressEvent(QMouseEvent *event)";

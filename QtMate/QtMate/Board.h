@@ -28,6 +28,8 @@ public:
 	}
 public:
 	void	init();
+	Color	get_color(int x, int y) const { return m_localBoard[y*BOARD9_WD + x]; }
+	void	set_color(int x, int y, Color col) { m_localBoard[y*BOARD9_WD + x] = col; }
 private:
 	Color	m_localBoard[BOARD9_SIZE];
 	Color	m_globalBoard[BOARD_SIZE];
