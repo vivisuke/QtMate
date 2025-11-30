@@ -29,8 +29,10 @@ signals:
 	void	cellClicked(int x, int y);
     
 private:
-    QImage	m_image_o;
-    QImage	m_image_x;
+    QImage	m_imageO;
+    QImage	m_imageX;
+    QImage	m_imageBigO;
+    QImage	m_imageBigX;
     Board	*m_board = nullptr;
 };
 

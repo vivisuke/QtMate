@@ -9,15 +9,19 @@ BoardWidget::BoardWidget(QWidget *parent) : QWidget(parent)
 	QString currentPath = QDir::currentPath(); // または QCoreApplication::applicationDirPath();
     QString imageOPath = currentPath + "/images/circle_black_48.png";
     QString imageXPath = currentPath + "/images/close_black_48.png";
+    QString imageBigOPath = currentPath + "/images/big_circle_black.png";
+    QString imageBigXPath = currentPath + "/images/big_close_black.png";
 
     qDebug() << "Attempting to load image from:" << imageOPath;
 
-    if (!m_image_o.load(imageOPath)) {
+    if (!m_imageO.load(imageOPath)) {
         qDebug() << "can't load " << imageOPath;
     }
-    if (!m_image_x.load(imageXPath)) {
+    if (!m_imageX.load(imageXPath)) {
         qDebug() << "can't load " << imageXPath;
     }
+    m_imageBigO.load(imageBigOPath);
+    m_imageBigX.load(imageBigXPath);
 }
 
 void BoardWidget::paintEvent(QPaintEvent* event)
@@ -63,11 +67,15 @@ void BoardWidget::paintEvent(QPaintEvent* event)
 	    for(int x = 0; x < N_HORZ; ++x) {
 	    	auto col = m_board->get_color(x, y);
 			if( col == BLACK )
-			    painter.drawImage(xyToPoint(x, y), m_image_o);
+			    painter.drawImage(xyToPoint(x, y), m_imageO);
 			else if( col == WHITE )
-			    painter.drawImage(xyToPoint(x, y), m_image_x);
+			    painter.drawImage(xyToPoint(x, y), m_imageX);
 	    }
     }
+    //	グローバル盤面上石描画
+    painter.drawImage(xyToPoint(0, 0), m_imageBigO);
+    painter.drawImage(xyToPoint(3, 0), m_imageBigX);
+
     //	着手不可ローカルボードをグレイアウト
     for(int y = 0; y < BOARD_WD; ++y) {
 	    for(int x = 0; x < BOARD_WD; ++x) {
