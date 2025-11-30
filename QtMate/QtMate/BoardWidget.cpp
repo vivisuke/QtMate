@@ -1,4 +1,5 @@
 ﻿#include <QPainter>
+#include <QMouseEvent>
 #include <QDir.h>
 #include "BoardWidget.h"
 
@@ -61,5 +62,8 @@ void BoardWidget::paintEvent(QPaintEvent* event)
 }
 void BoardWidget::mousePressEvent(QMouseEvent *event) {
 	qDebug() << "mousePressEvent(QMouseEvent *event)";
-	emit cellClicked(1, 23);
+	QPoint pos = event->pos();
+	int x = (pos.x() - MARGIN) / CELL_WD;
+	int y = (pos.y() - MARGIN) / CELL_WD;
+	emit cellClicked(x, y);
 }
