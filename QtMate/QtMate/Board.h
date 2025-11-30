@@ -30,8 +30,11 @@ public:
 	void	init();
 	Color	get_color(int x, int y) const { return m_localBoard[y*BOARD9_WD + x]; }
 	void	set_color(int x, int y, Color col) { m_localBoard[y*BOARD9_WD + x] = col; }
+	bool	isValidLB(int x, int y) const { return m_isValidLB[y*BOARD_WD + x]; }
+	void	updateIsValidLB(int x, int y);
 private:
 	Color	m_localBoard[BOARD9_SIZE];
 	Color	m_globalBoard[BOARD_SIZE];
+	bool	m_isValidLB[BOARD_SIZE];		//	各ローカルボードに着手可能か？
 };
 
