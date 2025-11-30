@@ -22,6 +22,7 @@ public slots:
 
 protected:
 	void buildConnections();
+	void	updateNextColor();
 
 private:
     Ui::MainWindowClass *ui;

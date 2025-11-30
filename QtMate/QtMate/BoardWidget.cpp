@@ -1,5 +1,22 @@
 ﻿#include <QPainter>
+#include <QDir.h>
 #include "BoardWidget.h"
+
+BoardWidget::BoardWidget(QWidget *parent) : QWidget(parent)
+{
+	QString currentPath = QDir::currentPath(); // または QCoreApplication::applicationDirPath();
+    QString imageOPath = currentPath + "/images/circle_black_48.png";
+    QString imageXPath = currentPath + "/images/close_black_48.png";
+
+    qDebug() << "Attempting to load image from:" << imageOPath;
+
+    if (!m_image_o.load(imageOPath)) {
+        qDebug() << "can't load " << imageOPath;
+    }
+    if (!m_image_x.load(imageXPath)) {
+        qDebug() << "can't load " << imageXPath;
+    }
+}
 
 void BoardWidget::paintEvent(QPaintEvent* event)
 {
@@ -38,6 +55,9 @@ void BoardWidget::paintEvent(QPaintEvent* event)
 	    painter.drawText(xyToPoint(0, y+1) + QPointF(-CELL_WD*0.35, -CELL_WD*0.3), QChar('1'+y));
 	    //painter.drawText(xyToPoint(0, y+1) + QPointF(-CELL_WD*0.5, -CELL_WD*0.3), QString::number(y + 1).rightJustified(2));
     }
+
+    painter.drawImage(xyToPoint(1, 1), m_image_o);
+    painter.drawImage(xyToPoint(4, 3), m_image_x);
 }
 void BoardWidget::mousePressEvent(QMouseEvent *event) {
 	qDebug() << "mousePressEvent(QMouseEvent *event)";

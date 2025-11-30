@@ -13,7 +13,8 @@ class BoardWidget : public QWidget
 	Q_OBJECT
 
 public:
-	BoardWidget(QWidget *parent = nullptr) : QWidget(parent) {}
+	BoardWidget(QWidget *parent = nullptr);
+	//BoardWidget(QWidget *parent = nullptr) : QWidget(parent) {}
 
 	void setBoard(Board *ptr) { m_board = ptr; }
 
@@ -28,6 +29,8 @@ signals:
 	void	cellClicked(int x, int y);
     
 private:
+    QImage	m_image_o;
+    QImage	m_image_x;
     Board	*m_board = nullptr;
 };
 

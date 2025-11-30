@@ -38,7 +38,7 @@
       <property name="minimumSize">
        <size>
         <width>32</width>
-        <height>100</height>
+        <height>95</height>
        </size>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -82,7 +82,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>images/stone_black.png</pixmap>
+             <pixmap>images/circle_black_64.png</pixmap>
             </property>
            </widget>
           </item>
@@ -164,7 +164,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>images/stone_white.png</pixmap>
+             <pixmap>images/close_black_64.png</pixmap>
             </property>
            </widget>
           </item>
@@ -239,7 +239,7 @@
      </spacer>
     </item>
     <item>
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="messLabel">
       <property name="minimumSize">
        <size>
         <width>0</width>
