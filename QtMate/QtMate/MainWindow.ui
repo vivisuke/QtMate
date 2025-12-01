@@ -378,6 +378,9 @@
    </property>
   </action>
   <action name="action_Start">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset>
      <normaloff>images/play_black.png</normaloff>images/play_black.png</iconset>
@@ -387,6 +390,9 @@
    </property>
   </action>
   <action name="action_Stop">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset>
      <normaloff>images/stop_32.png</normaloff>images/stop_32.png</iconset>
@@ -414,5 +420,42 @@
  <resources>
   <include location="MainWindow.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>comboBox_2</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindowClass</receiver>
+   <slot>onWhitePlayerChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>458</x>
+     <y>125</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>558</x>
+     <y>-5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindowClass</receiver>
+   <slot>onBlackPlayerChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>179</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>195</x>
+     <y>-18</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onWhitePlayerChanged(int)</slot>
+  <slot>onBlackPlayerChanged(int)</slot>
+ </slots>
 </ui>

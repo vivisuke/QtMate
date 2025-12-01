@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <memory>           // std::unique_ptr
 #include <QtWidgets/QMainWindow>
@@ -19,7 +19,11 @@ public:
 
 public slots:
 	void	onCellClicked(int x, int y);
+	void	onActionStart();
+	void	onActionStop();
 	void	onActionInit();
+	void	onBlackPlayerChanged(int ix);
+	void	onWhitePlayerChanged(int ix);
 
 protected:
 	void buildConnections();

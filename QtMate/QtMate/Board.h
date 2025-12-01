@@ -3,6 +3,7 @@
 
 enum {
 	EMPTY = 0, BLACK, WHITE,
+	HUMAN = 0, RANDOM_AI,
 };
 
 const int BOARD_WD = 3;
@@ -13,9 +14,12 @@ const int BOARD9_SIZE = BOARD9_WD * BOARD9_WD;
 using Color = char;
 
 struct Global {
-	Color	m_next = BLACK;		//	次の手番
-	int		m_lastX = -1;		//	直前着手位置
-	int		m_lastY = -1;		//	直前着手位置
+	bool	m_gameActive = false;	//	ゲーム開始状態か？
+	Color	m_next = BLACK;			//	次の手番
+	int		m_blackPlayer = 0;
+	int		m_whitePlayer = 0;
+	int		m_lastX = -1;			//	直前着手位置
+	int		m_lastY = -1;			//	直前着手位置
 public:
 	void	init() {
 		m_next = BLACK;

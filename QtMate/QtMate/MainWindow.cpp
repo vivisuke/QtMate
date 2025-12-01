@@ -1,17 +1,23 @@
-#include "MainWindow.h"
+﻿#include "MainWindow.h"
 #include "Board.h"
 #include "BoardWidget.h"
 
 Global g;
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindowClass())
+	: QMainWindow(parent)
+	, ui(new Ui::MainWindowClass())
 {
-    ui->setupUi(this);
-    menuBar()->hide();
-    m_board = std::make_unique<Board>();
-    ui->board->setBoard(m_board.get());
+	ui->setupUi(this);
+	menuBar()->hide();
+	statusBar()->setStyleSheet(
+		"QToolButton:disabled {"
+		"	 color: #c0c0c0;"		 // 明るいグレー（デフォルトは #808080 くらい）
+		"	 background-color: transparent;"
+		"}"
+	);
+	m_board = std::make_unique<Board>();
+	ui->board->setBoard(m_board.get());
 	setFixedSize(500, 800);
 	setWindowTitle("QtMate (Ultimate Tic-Tac-Toe) Ver. 0.001");
 	//ui->black->setStyleSheet("background-color: skyblue;");
@@ -22,10 +28,12 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+	delete ui;
 }
 void MainWindow::buildConnections() {
 	connect(ui->board, &BoardWidget::cellClicked, this, &MainWindow::onCellClicked);
+	connect(ui->action_Start, &QAction::triggered, this, &MainWindow::onActionStart);
+	connect(ui->action_Stop, &QAction::triggered, this, &MainWindow::onActionStop);
 	connect(ui->action_Init, &QAction::triggered, this, &MainWindow::onActionInit);
 }
 
@@ -60,10 +68,28 @@ void MainWindow::onCellClicked(int x, int y) {
 	updateNextColor();
 	ui->board->update();
 }
+void MainWindow::onActionStart() {
+	qDebug() << "MainWindow::onActionStart()";
+	ui->action_Start->setEnabled(false);
+	ui->action_Stop->setEnabled(true);
+	ui->action_Stop->setChecked(false);
+}
+void MainWindow::onActionStop() {
+	qDebug() << "MainWindow::onActionStop()";
+	ui->action_Stop->setEnabled(false);
+	ui->action_Start->setEnabled(true);
+	ui->action_Start->setChecked(false);
+}
 void MainWindow::onActionInit() {
 	qDebug() << "MainWindow::onActionInit()";
 	g.init();
 	m_board->init();
 	ui->board->update();
 	updateNextColor();
+}
+void MainWindow::onBlackPlayerChanged(int ix) {
+	qDebug() << QString("MainWindow::onBlackPlayerChanged(%1)").arg(ix);
+}
+void MainWindow::onWhitePlayerChanged(int ix) {
+	qDebug() << QString("MainWindow::onWhitePlayerChanged(%1)").arg(ix);
 }
