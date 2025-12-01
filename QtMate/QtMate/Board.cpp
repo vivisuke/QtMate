@@ -7,8 +7,12 @@ void Board::init() {
 }
 void Board::updateIsValidLB(int x, int y) {
 	int ix = (y%BOARD_WD)*BOARD_WD + (x%BOARD_WD);
-	for(auto& v: m_isValidLB) v = false;
-	m_isValidLB[ix] = true;
+	if( m_globalBoard[ix] == EMPTY ) {
+		for(auto& v: m_isValidLB) v = false;
+		m_isValidLB[ix] = true;
+	} else {
+		for(auto& v: m_isValidLB) v = true;
+	}
 }
 bool Board::isThree(int x, int y, Color col) const {
 	int x0 = x - x % 3;		//	ローカルボード内最左位置
