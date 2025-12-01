@@ -29,8 +29,11 @@ public:
 public:
 	void	init();
 	Color	get_color(int x, int y) const { return m_localBoard[y*BOARD9_WD + x]; }
-	void	set_color(int x, int y, Color col) { m_localBoard[y*BOARD9_WD + x] = col; }
+	Color	get_colorGB(int x, int y) const { return m_globalBoard[y*BOARD_WD + x]; }
 	bool	isValidLB(int x, int y) const { return m_isValidLB[y*BOARD_WD + x]; }
+	bool	isThree(int x, int y, Color col) const;		//	三目並んだか？
+	void	set_color(int x, int y, Color col) { m_localBoard[y*BOARD9_WD + x] = col; }
+	void	set_colorGB(int x, int y, Color col) { m_globalBoard[y*BOARD_WD + x] = col; }
 	void	updateIsValidLB(int x, int y);
 private:
 	Color	m_localBoard[BOARD9_SIZE];

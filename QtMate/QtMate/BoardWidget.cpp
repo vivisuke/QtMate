@@ -72,16 +72,24 @@ void BoardWidget::paintEvent(QPaintEvent* event)
 			    painter.drawImage(xyToPoint(x, y), m_imageX);
 	    }
     }
-    //	グローバル盤面上石描画
-    painter.drawImage(xyToPoint(0, 0), m_imageBigO);
-    painter.drawImage(xyToPoint(3, 0), m_imageBigX);
-
     //	着手不可ローカルボードをグレイアウト
     for(int y = 0; y < BOARD_WD; ++y) {
 	    for(int x = 0; x < BOARD_WD; ++x) {
 	    	if( !m_board->isValidLB(x, y) ) {
 			    painter.fillRect(QRect(xyToPoint(x*3, y*3), QSize(CELL_WD*3, CELL_WD*3)), QColor("#80808040"));
 	    	}
+	    }
+    }
+    //	グローバル盤面上石描画
+    //painter.drawImage(xyToPoint(0, 0), m_imageBigO);
+    //painter.drawImage(xyToPoint(3, 0), m_imageBigX);
+    for(int y = 0; y < BOARD_WD; ++y) {
+	    for(int x = 0; x < BOARD_WD; ++x) {
+	    	auto col = m_board->get_colorGB(x, y);
+	    	if( col == BLACK )
+			    painter.drawImage(xyToPoint(x*3, y*3), m_imageBigO);
+	    	else if( col == WHITE)
+			    painter.drawImage(xyToPoint(x*3, y*3), m_imageBigX);
 	    }
     }
     //	グローバルボードグリッド描画

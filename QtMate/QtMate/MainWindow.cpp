@@ -48,6 +48,9 @@ void MainWindow::onCellClicked(int x, int y) {
 	if( !m_board->isValidLB(x/3, y/3) )
 		return;
 	m_board->set_color(x, y, g.m_next);
+	if( m_board->isThree(x, y, g.m_next) ) {
+		m_board->set_colorGB(x/3, y/3, g.m_next);
+	}
 	m_board->updateIsValidLB(x, y);
 	g.m_next = BLACK+WHITE - g.m_next;
 	updateNextColor();
