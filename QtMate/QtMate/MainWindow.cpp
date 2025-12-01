@@ -25,6 +25,7 @@ MainWindow::~MainWindow()
 }
 void MainWindow::buildConnections() {
 	connect(ui->board, &BoardWidget::cellClicked, this, &MainWindow::onCellClicked);
+	connect(ui->action_Init, &QAction::triggered, this, &MainWindow::onActionInit);
 }
 
 void MainWindow::updateNextColor() {
@@ -57,4 +58,11 @@ void MainWindow::onCellClicked(int x, int y) {
 	g.m_next = BLACK+WHITE - g.m_next;
 	updateNextColor();
 	ui->board->update();
+}
+void MainWindow::onActionInit() {
+	qDebug() << "MainWindow::onActionInit()";
+	g.init();
+	m_board->init();
+	ui->board->update();
+	updateNextColor();
 }

@@ -19,6 +19,7 @@ public:
 
 public slots:
 	void	onCellClicked(int x, int y);
+	void	onActionInit();
 
 protected:
 	void buildConnections();

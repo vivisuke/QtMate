@@ -16,6 +16,11 @@ struct Global {
 	Color	m_next = BLACK;		//	次の手番
 	int		m_lastX = -1;		//	直前着手位置
 	int		m_lastY = -1;		//	直前着手位置
+public:
+	void	init() {
+		m_next = BLACK;
+		m_lastX = m_lastY = -1;
+	}
 };
 
 class Board
