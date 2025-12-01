@@ -335,6 +335,9 @@
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -348,6 +351,8 @@
      <string>&amp;Game</string>
     </property>
     <addaction name="action_Init"/>
+    <addaction name="action_Start"/>
+    <addaction name="action_Stop"/>
    </widget>
    <addaction name="menu_Game"/>
   </widget>
@@ -358,12 +363,36 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="action_Start"/>
+   <addaction name="action_Stop"/>
    <addaction name="action_Init"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_Init">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/first_page.png</normaloff>images/first_page.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Init</string>
+   </property>
+  </action>
+  <action name="action_Start">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/play_black.png</normaloff>images/play_black.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Start</string>
+   </property>
+  </action>
+  <action name="action_Stop">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/stop_32.png</normaloff>images/stop_32.png</iconset>
+   </property>
+   <property name="text">
+    <string>sto&amp;P</string>
    </property>
   </action>
  </widget>

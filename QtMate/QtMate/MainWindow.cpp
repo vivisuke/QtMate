@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindowClass())
 {
     ui->setupUi(this);
+    menuBar()->hide();
     m_board = std::make_unique<Board>();
     ui->board->setBoard(m_board.get());
 	setFixedSize(500, 800);
