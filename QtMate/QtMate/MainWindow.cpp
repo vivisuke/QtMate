@@ -52,6 +52,8 @@ void MainWindow::onCellClicked(int x, int y) {
 		m_board->set_colorGB(x/3, y/3, g.m_next);
 	}
 	m_board->updateIsValidLB(x, y);
+	g.m_lastX = x;
+	g.m_lastY = y;
 	g.m_next = BLACK+WHITE - g.m_next;
 	updateNextColor();
 	ui->board->update();

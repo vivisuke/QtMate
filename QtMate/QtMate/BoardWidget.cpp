@@ -4,6 +4,8 @@
 #include "Board.h"
 #include "BoardWidget.h"
 
+extern Global g;
+
 BoardWidget::BoardWidget(QWidget *parent) : QWidget(parent)
 {
 	QString currentPath = QDir::currentPath(); // または QCoreApplication::applicationDirPath();
@@ -37,10 +39,14 @@ void BoardWidget::paintEvent(QPaintEvent* event)
     pen.setColor(Qt::black);            // 黒線
     painter.setPen(pen);
     //painter.drawLine(QPoint(0, 0), QPoint(ww, wh));
-
+	//	背景矩形描画
     painter.fillRect(QRect(0, 0, ww, wh), Qt::black);
     painter.fillRect(QRect(24, 24, 48*9, 48*9), QColor("#f0f0f0"));
-
+    //	直前着手位置強調
+    if( g.m_lastX >= 0 ) {
+    	QRect r(xyToPoint(g.m_lastX, g.m_lastY), QSize(CELL_WD, CELL_WD));
+    	painter.fillRect(r, QColor("#fc9db8"));
+    }
     //	グリッド描画
     for(int i = 1; i < N_HORZ; ++i) {
         //if (i % 3 == 0) {
