@@ -73,6 +73,9 @@ void MainWindow::do_put(int x, int y) {
 	ui->board->update();
 	if( g.m_isGameActive )
 		nextTurn();
+	else {
+		ui->messLabel->setText(g.m_next == BLACK ? "O won." : "X won.");
+	}
 }
 void MainWindow::updateStartStopAction() {
 	if( g.m_isGameActive ) {
@@ -117,7 +120,7 @@ void MainWindow::nextTurn() {
 	{
 		return;
 	}
-	QTimer::singleShot(200, this, &MainWindow::proceedTurn);
+	QTimer::singleShot(100, this, &MainWindow::proceedTurn);
 }
 void MainWindow::proceedTurn() {
 	if( g.m_next == BLACK && g.m_blackPlayer == HUMAN ||
