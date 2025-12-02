@@ -1,4 +1,15 @@
-﻿#include "Board.h"
+﻿#include <vector>
+#include <random>
+#include "Board.h"
+
+using namespace std;
+
+static std::random_device rd;
+static std::mt19937 rgen(rd()); 
+//static std::mt19937 rgen(0); 
+//std::mt19937_64 rgen64(rd());		// 64ビット版
+
+#define		is_empty()	empty()
 
 void Board::init() {
 	for(auto& v: m_localBoard) v = EMPTY;
@@ -26,4 +37,16 @@ bool Board::isThree(int x, int y, Color col) const {
 	if( get_color(x0, y0+2) == col && get_color(x0+1, y0+1) == col && get_color(x0+2, y0) == col )
 		return true;
 	return false;
+}
+int Board::sel_moveRandom() const {
+	vector<int> lst;
+	for(int y = 0; y < BOARD9_WD; ++y) {
+		for(int x = 0; x < BOARD9_WD; ++x) {
+			if( m_isValidLB[(y/3)*BOARD_WD + (x/3)] && get_color(x, y) == EMPTY ) {
+				lst.push_back(y * BOARD9_WD + x);
+			}
+		}
+	}
+	if( lst.is_empty() ) return -1;
+	return lst[rgen() % lst.size()];
 }

@@ -2,6 +2,7 @@
 
 #include <memory>           // std::unique_ptr
 #include <QtWidgets/QMainWindow>
+//#include <QTimer>
 #include "ui_MainWindow.h"
 //#include "Board.h"
 
@@ -28,9 +29,13 @@ public slots:
 protected:
 	void buildConnections();
 	void	updateNextColor();
+	void	nextTurn();				//	次の手番に（AI手番の場合は、500msec ウェイト
+	void	proceedTurn();			//	次の手番を進める
+	void	do_put(int x, int y);
 
 private:
     Ui::MainWindowClass *ui;
+    //QTimer	m_timer;
     std::unique_ptr<class Board> m_board;
 };
 

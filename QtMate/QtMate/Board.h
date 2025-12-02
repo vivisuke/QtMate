@@ -14,7 +14,8 @@ const int BOARD9_SIZE = BOARD9_WD * BOARD9_WD;
 using Color = char;
 
 struct Global {
-	bool	m_gameActive = false;	//	ゲーム開始状態か？
+	bool	m_isGameActive = false;	//	ゲーム開始状態か？
+	bool	m_thinkingAI = false;	//	AI 考慮中
 	Color	m_next = BLACK;			//	次の手番
 	int		m_blackPlayer = 0;
 	int		m_whitePlayer = 0;
@@ -46,6 +47,8 @@ public:
 	void	set_color(int x, int y, Color col) { m_localBoard[y*BOARD9_WD + x] = col; }
 	void	set_colorGB(int x, int y, Color col) { m_globalBoard[y*BOARD_WD + x] = col; }
 	void	updateIsValidLB(int x, int y);
+
+	int		sel_moveRandom() const;
 private:
 	Color	m_localBoard[BOARD9_SIZE];
 	Color	m_globalBoard[BOARD_SIZE];

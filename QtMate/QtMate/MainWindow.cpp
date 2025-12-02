@@ -1,4 +1,5 @@
-﻿#include "MainWindow.h"
+﻿#include <QTimer>
+#include "MainWindow.h"
 #include "Board.h"
 #include "BoardWidget.h"
 
@@ -57,6 +58,9 @@ void MainWindow::onCellClicked(int x, int y) {
 		return;
 	if( !m_board->isValidLB(x/3, y/3) )
 		return;
+	do_put(x, y);
+}
+void MainWindow::do_put(int x, int y) {
 	m_board->set_color(x, y, g.m_next);
 	if( m_board->isThree(x, y, g.m_next) ) {
 		m_board->set_colorGB(x/3, y/3, g.m_next);
@@ -67,18 +71,21 @@ void MainWindow::onCellClicked(int x, int y) {
 	g.m_next = BLACK+WHITE - g.m_next;
 	updateNextColor();
 	ui->board->update();
+	nextTurn();
 }
 void MainWindow::onActionStart() {
 	qDebug() << "MainWindow::onActionStart()";
 	ui->action_Start->setEnabled(false);
 	ui->action_Stop->setEnabled(true);
 	ui->action_Stop->setChecked(false);
+	g.m_isGameActive = true;
 }
 void MainWindow::onActionStop() {
 	qDebug() << "MainWindow::onActionStop()";
 	ui->action_Stop->setEnabled(false);
 	ui->action_Start->setEnabled(true);
 	ui->action_Start->setChecked(false);
+	g.m_isGameActive = false;
 }
 void MainWindow::onActionInit() {
 	qDebug() << "MainWindow::onActionInit()";
@@ -89,7 +96,29 @@ void MainWindow::onActionInit() {
 }
 void MainWindow::onBlackPlayerChanged(int ix) {
 	qDebug() << QString("MainWindow::onBlackPlayerChanged(%1)").arg(ix);
+	g.m_blackPlayer = ix;
 }
 void MainWindow::onWhitePlayerChanged(int ix) {
 	qDebug() << QString("MainWindow::onWhitePlayerChanged(%1)").arg(ix);
+	g.m_whitePlayer = ix;
+}
+void MainWindow::nextTurn() {
+	if( g.m_next == BLACK && g.m_blackPlayer == HUMAN ||
+		g.m_next == WHITE && g.m_whitePlayer == HUMAN )
+	{
+		return;
+	}
+	QTimer::singleShot(200, this, &MainWindow::proceedTurn);
+}
+void MainWindow::proceedTurn() {
+	if( g.m_next == BLACK && g.m_blackPlayer == HUMAN ||
+		g.m_next == WHITE && g.m_whitePlayer == HUMAN )
+	{
+		return;
+	}
+	auto ix = m_board->sel_moveRandom();
+	if( ix < 0 ) {
+		return;
+	}
+	do_put(ix%BOARD9_WD, ix/BOARD9_WD);
 }
