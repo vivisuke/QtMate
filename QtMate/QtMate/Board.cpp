@@ -26,13 +26,16 @@ void Board::updateIsValidLB(int x, int y) {				//	次に着手可能ローカル
 		for(auto& v: m_isValidLB) v = true;
 	}
 }
-void Board::put_color(int x, int y, Color col) {
+bool Board::put_color(int x, int y, Color col) {
+	bool won = false;
 	set_color(x, y, col);
 	m_nEmpty[(y/3)*3 + x/3] -= 1;
 	if( isThree(x, y, col) ) {
 		set_colorGB(x/3, y/3, col);
+		won = isThreeGB(x/3, y/3, col);
 	}
 	updateIsValidLB(x, y);
+	return won;
 }
 bool Board::isThree(int x, int y, Color col) const {
 	int x0 = x - x % 3;		//	ローカルボード内最左位置
@@ -44,6 +47,19 @@ bool Board::isThree(int x, int y, Color col) const {
 	if( get_color(x0, y0) == col && get_color(x0+1, y0+1) == col && get_color(x0+2, y0+2) == col )
 		return true;
 	if( get_color(x0, y0+2) == col && get_color(x0+1, y0+1) == col && get_color(x0+2, y0) == col )
+		return true;
+	return false;
+}
+bool Board::isThreeGB(int gx, int gy, Color col) const {
+	int x0 = gx - gx % 3;		//	ローカルボード内最左位置
+	int y0 = gy - gy % 3;		//	ローカルボード内最上位置
+	if( get_colorGB(x0, gy) == col && get_colorGB(x0+1, gy) == col && get_colorGB(x0+2, gy) == col )
+		return true;
+	if( get_colorGB(gx, y0) == col && get_colorGB(gx, y0+1) == col && get_colorGB(gx, y0+2) == col )
+		return true;
+	if( get_colorGB(x0, y0) == col && get_colorGB(x0+1, y0+1) == col && get_colorGB(x0+2, y0+2) == col )
+		return true;
+	if( get_colorGB(x0, y0+2) == col && get_colorGB(x0+1, y0+1) == col && get_colorGB(x0+2, y0) == col )
 		return true;
 	return false;
 }

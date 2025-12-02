@@ -41,11 +41,12 @@ public:
 	}
 public:
 	void	init();
-	void	put_color(int x, int y, Color col);
+	bool	put_color(int x, int y, Color col);			//	return: col の勝利か？
 	Color	get_color(int x, int y) const { return m_localBoard[y*BOARD9_WD + x]; }
 	Color	get_colorGB(int x, int y) const { return m_globalBoard[y*BOARD_WD + x]; }
 	bool	isValidLB(int x, int y) const { return m_isValidLB[y*BOARD_WD + x]; }
-	bool	isThree(int x, int y, Color col) const;		//	三目並んだか？
+	bool	isThree(int x, int y, Color col) const;			//	三目並んだか？
+	bool	isThreeGB(int gx, int gy, Color col) const;		//	Global Board で三目並んだか？
 	void	set_color(int x, int y, Color col) { m_localBoard[y*BOARD9_WD + x] = col; }
 	void	set_colorGB(int x, int y, Color col) { m_globalBoard[y*BOARD_WD + x] = col; }
 	void	updateIsValidLB(int x, int y);

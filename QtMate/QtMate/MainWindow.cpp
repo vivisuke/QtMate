@@ -62,18 +62,17 @@ void MainWindow::onCellClicked(int x, int y) {
 	do_put(x, y);
 }
 void MainWindow::do_put(int x, int y) {
-	m_board->put_color(x, y, g.m_next);
-	//m_board->set_color(x, y, g.m_next);
-	//if( m_board->isThree(x, y, g.m_next) ) {
-	//	m_board->set_colorGB(x/3, y/3, g.m_next);
-	//}
-	//m_board->updateIsValidLB(x, y);
+	if( m_board->put_color(x, y, g.m_next) ) {
+		onActionStop();
+	} else {
+		g.m_next = BLACK+WHITE - g.m_next;
+	}
 	g.m_lastX = x;
 	g.m_lastY = y;
-	g.m_next = BLACK+WHITE - g.m_next;
 	updateNextColor();
 	ui->board->update();
-	nextTurn();
+	if( g.m_isGameActive )
+		nextTurn();
 }
 void MainWindow::updateStartStopAction() {
 	if( g.m_isGameActive ) {
