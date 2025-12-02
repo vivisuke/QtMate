@@ -27,7 +27,8 @@ public slots:
 	void	onWhitePlayerChanged(int ix);
 
 protected:
-	void buildConnections();
+	void	buildConnections();
+	void	updateStartStopAction();
 	void	updateNextColor();
 	void	nextTurn();				//	次の手番に（AI手番の場合は、500msec ウェイト
 	void	proceedTurn();			//	次の手番を進める

@@ -12,6 +12,7 @@ const int BOARD9_WD = 9;
 const int BOARD9_SIZE = BOARD9_WD * BOARD9_WD;
 
 using Color = char;
+using uchar = unsigned char;
 
 struct Global {
 	bool	m_isGameActive = false;	//	ゲーム開始状態か？
@@ -40,6 +41,7 @@ public:
 	}
 public:
 	void	init();
+	void	put_color(int x, int y, Color col);
 	Color	get_color(int x, int y) const { return m_localBoard[y*BOARD9_WD + x]; }
 	Color	get_colorGB(int x, int y) const { return m_globalBoard[y*BOARD_WD + x]; }
 	bool	isValidLB(int x, int y) const { return m_isValidLB[y*BOARD_WD + x]; }
@@ -52,6 +54,7 @@ public:
 private:
 	Color	m_localBoard[BOARD9_SIZE];
 	Color	m_globalBoard[BOARD_SIZE];
+	uchar	m_nEmpty[BOARD_SIZE];			//	各ローカルボード空欄数
 	bool	m_isValidLB[BOARD_SIZE];		//	各ローカルボードに着手可能か？
 };
 

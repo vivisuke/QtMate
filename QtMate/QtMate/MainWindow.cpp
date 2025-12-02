@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
 	//ui->black->setStyleSheet("background-color: skyblue;");
 	//ui->white->setStyleSheet("background-color: gray;");
 	buildConnections();
+	updateStartStopAction();
 	updateNextColor();
 }
 
@@ -61,11 +62,12 @@ void MainWindow::onCellClicked(int x, int y) {
 	do_put(x, y);
 }
 void MainWindow::do_put(int x, int y) {
-	m_board->set_color(x, y, g.m_next);
-	if( m_board->isThree(x, y, g.m_next) ) {
-		m_board->set_colorGB(x/3, y/3, g.m_next);
-	}
-	m_board->updateIsValidLB(x, y);
+	m_board->put_color(x, y, g.m_next);
+	//m_board->set_color(x, y, g.m_next);
+	//if( m_board->isThree(x, y, g.m_next) ) {
+	//	m_board->set_colorGB(x/3, y/3, g.m_next);
+	//}
+	//m_board->updateIsValidLB(x, y);
 	g.m_lastX = x;
 	g.m_lastY = y;
 	g.m_next = BLACK+WHITE - g.m_next;
@@ -73,19 +75,27 @@ void MainWindow::do_put(int x, int y) {
 	ui->board->update();
 	nextTurn();
 }
+void MainWindow::updateStartStopAction() {
+	if( g.m_isGameActive ) {
+		ui->action_Start->setEnabled(false);
+		ui->action_Stop->setEnabled(true);
+		ui->action_Stop->setChecked(false);
+	} else {
+		ui->action_Stop->setEnabled(false);
+		ui->action_Start->setEnabled(true);
+		ui->action_Start->setChecked(false);
+	}
+}
 void MainWindow::onActionStart() {
 	qDebug() << "MainWindow::onActionStart()";
-	ui->action_Start->setEnabled(false);
-	ui->action_Stop->setEnabled(true);
-	ui->action_Stop->setChecked(false);
 	g.m_isGameActive = true;
+	updateStartStopAction();
+	nextTurn();
 }
 void MainWindow::onActionStop() {
 	qDebug() << "MainWindow::onActionStop()";
-	ui->action_Stop->setEnabled(false);
-	ui->action_Start->setEnabled(true);
-	ui->action_Start->setChecked(false);
 	g.m_isGameActive = false;
+	updateStartStopAction();
 }
 void MainWindow::onActionInit() {
 	qDebug() << "MainWindow::onActionInit()";

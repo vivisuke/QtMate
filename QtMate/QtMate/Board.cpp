@@ -15,15 +15,24 @@ void Board::init() {
 	for(auto& v: m_localBoard) v = EMPTY;
 	for(auto& v: m_globalBoard) v = EMPTY;
 	for(auto& v: m_isValidLB) v = true;
+	for(auto& v: m_nEmpty) v = BOARD_SIZE;
 }
-void Board::updateIsValidLB(int x, int y) {
+void Board::updateIsValidLB(int x, int y) {				//	次に着手可能ローカルボードかどうかを判定
 	int ix = (y%BOARD_WD)*BOARD_WD + (x%BOARD_WD);
-	if( m_globalBoard[ix] == EMPTY ) {
+	if( m_globalBoard[ix] == EMPTY && m_nEmpty[ix] != 0 ) {
 		for(auto& v: m_isValidLB) v = false;
 		m_isValidLB[ix] = true;
 	} else {
 		for(auto& v: m_isValidLB) v = true;
 	}
+}
+void Board::put_color(int x, int y, Color col) {
+	set_color(x, y, col);
+	m_nEmpty[(y/3)*3 + x/3] -= 1;
+	if( isThree(x, y, col) ) {
+		set_colorGB(x/3, y/3, col);
+	}
+	updateIsValidLB(x, y);
 }
 bool Board::isThree(int x, int y, Color col) const {
 	int x0 = x - x % 3;		//	ローカルボード内最左位置
