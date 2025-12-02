@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 		"	 background-color: transparent;"
 		"}"
 	);
+	ui->mainToolBar->setFloatable(false);
+	ui->mainToolBar->setMovable(false);
 	m_board = std::make_unique<Board>();
 	ui->board->setBoard(m_board.get());
 	setFixedSize(500, 800);
