@@ -75,3 +75,21 @@ int Board::sel_moveRandom() const {
 	if( lst.is_empty() ) return -1;
 	return lst[rgen() % lst.size()];
 }
+int evaluateLine(int c1, int c2, int c3) {
+    int blackCount = 0;
+    int whiteCount = 0;
+    if( c1 == BLACK ) blackCount+= 1;
+    else if( c1 == WHITE ) whiteCount+= 1;
+    if( c2 == BLACK ) blackCount+= 1;
+    else if( c2 == WHITE ) whiteCount+= 1;
+    if( c3 == BLACK ) blackCount+= 1;
+    else if( c3 == WHITE ) whiteCount+= 1;
+
+    if( blackCount != 0 && whiteCount != 0 ) return 0;
+	// スコア変換用のテーブル (インデックスが個数に対応)
+    const int scores[] = {0, 1, 10, 100};
+    if( whiteCount == 0 )
+    	return scores[blackCount];
+    else
+    	return -scores[whiteCount];
+}

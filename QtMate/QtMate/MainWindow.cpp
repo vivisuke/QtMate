@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 		"	 background-color: transparent;"
 		"}"
 	);
-	ui->mainToolBar->setFloatable(false);
-	ui->mainToolBar->setMovable(false);
+	//ui->mainToolBar->setFloatable(false);
+	//ui->mainToolBar->setMovable(false);
 	m_board = std::make_unique<Board>();
 	ui->board->setBoard(m_board.get());
 	setFixedSize(500, 800);
@@ -61,7 +61,13 @@ void MainWindow::onCellClicked(int x, int y) {
 		return;
 	if( !m_board->isValidLB(x/3, y/3) )
 		return;
-	do_put(x, y);
+	if( !g.m_isGameActive )
+		return;
+	if( g.m_next == BLACK && g.m_blackPlayer == HUMAN ||
+		g.m_next == WHITE && g.m_whitePlayer == HUMAN )
+	{
+		do_put(x, y);
+	}
 }
 void MainWindow::do_put(int x, int y) {
 	if( m_board->put_color(x, y, g.m_next) ) {
