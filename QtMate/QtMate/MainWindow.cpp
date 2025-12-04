@@ -71,10 +71,13 @@ void MainWindow::onCellClicked(int x, int y) {
 }
 void MainWindow::do_put(int x, int y) {
 	if( m_board->put_color(x, y, g.m_next) ) {
-		onActionStop();
+		onActionStop();		//	勝敗がついた場合
 	} else {
 		g.m_next = BLACK+WHITE - g.m_next;
 	}
+	auto ev = m_board->eval();
+	qDebug() << "eval = " << ev;
+	ui->statusBar->showMessage(QString("eval = %1").arg(ev));
 	g.m_lastX = x;
 	g.m_lastY = y;
 	updateNextColor();

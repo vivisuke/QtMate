@@ -210,6 +210,19 @@
      </widget>
     </item>
     <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
      <widget class="BoardWidget" name="board" native="true">
       <property name="minimumSize">
        <size>
@@ -263,75 +276,6 @@
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QWidget" name="widget_3" native="true">
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>48</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>help</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>images/rule_black.png</normaloff>images/rule_black.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>52</width>
-           <height>52</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="toolButton">
-         <property name="styleSheet">
-          <string notr="true">color: black; background-color: transparent;</string>
-         </property>
-         <property name="text">
-          <string>help</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>images/rule_black.png</normaloff>
-           <activeoff>images/rule_gray.png</activeoff>
-           <selectedoff>images/rule_gray.png</selectedoff>
-           <selectedon>images/rule_gray.png</selectedon>images/rule_black.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>48</width>
-           <height>48</height>
-          </size>
-         </property>
-         <property name="toolButtonStyle">
-          <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -360,6 +304,12 @@
    <property name="movable">
     <bool>false</bool>
    </property>
+   <property name="iconSize">
+    <size>
+     <width>48</width>
+     <height>48</height>
+    </size>
+   </property>
    <property name="floatable">
     <bool>false</bool>
    </property>
@@ -371,7 +321,10 @@
    </attribute>
    <addaction name="action_Start"/>
    <addaction name="action_Stop"/>
+   <addaction name="separator"/>
    <addaction name="action_Init"/>
+   <addaction name="separator"/>
+   <addaction name="action_Rule"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_Init">
@@ -405,6 +358,18 @@
    </property>
    <property name="text">
     <string>sto&amp;P</string>
+   </property>
+  </action>
+  <action name="action_Rule">
+   <property name="icon">
+    <iconset>
+     <normaloff>images/rule_black.png</normaloff>images/rule_black.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Rule</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
    </property>
   </action>
  </widget>
