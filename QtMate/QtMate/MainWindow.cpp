@@ -39,6 +39,7 @@ void MainWindow::buildConnections() {
 	connect(ui->action_Start, &QAction::triggered, this, &MainWindow::onActionStart);
 	connect(ui->action_Stop, &QAction::triggered, this, &MainWindow::onActionStop);
 	connect(ui->action_Init, &QAction::triggered, this, &MainWindow::onActionInit);
+	connect(ui->action_Undo, &QAction::triggered, this, &MainWindow::onActionUndo);
 }
 
 void MainWindow::updateNextColor() {
@@ -114,6 +115,13 @@ void MainWindow::onActionInit() {
 	qDebug() << "MainWindow::onActionInit()";
 	g.init();
 	m_board->init();
+	ui->board->update();
+	updateNextColor();
+}
+void MainWindow::onActionUndo() {
+	qDebug() << "MainWindow::onActionUndo()";
+	if( !m_board->canUndo() ) return;
+	m_board->do_undo();
 	ui->board->update();
 	updateNextColor();
 }

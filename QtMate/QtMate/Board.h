@@ -31,6 +31,17 @@ public:
 	}
 };
 
+struct UndoItem {
+	int		m_x = 0;			//	着手位置
+	int		m_y = 0;
+	bool	m_gbChanged = false;	//	グローバルボードに石を打った
+public:
+	UndoItem(int x, int y=0, bool gbChanged = false)
+		: m_x(x), m_y(y), m_gbChanged(gbChanged)
+	{
+	}
+};
+
 class Board
 {
 public:
@@ -64,6 +75,8 @@ public:
 	void	set_color(int x, int y, Color col) { m_localBoard[y*BOARD9_WD + x] = col; }
 	void	set_colorGB(int x, int y, Color col) { m_globalBoard[y*BOARD_WD + x] = col; }
 	void	updateIsValidLB(int x, int y);
+	bool	canUndo() const;
+	void	do_undo();
 	int		eval(Color col) const;		//	引数側から見た評価値を返す
 	void	swapBW();					//	盤面黒白反転
 
@@ -81,5 +94,6 @@ private:
 	Color	m_globalBoard[BOARD_SIZE];
 	uchar	m_nEmpty[BOARD_SIZE];			//	各ローカルボード空欄数
 	bool	m_isValidLB[BOARD_SIZE];		//	各ローカルボードに着手可能か？
+    std::vector<UndoItem>	m_undoStack;			//	
 };
 

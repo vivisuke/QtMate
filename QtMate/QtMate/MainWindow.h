@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <vector>
 #include <memory>           // std::unique_ptr
 #include <QtWidgets/QMainWindow>
 //#include <QTimer>
@@ -23,6 +24,7 @@ public slots:
 	void	onActionStart();
 	void	onActionStop();
 	void	onActionInit();
+	void	onActionUndo();
 	void	onBlackPlayerChanged(int ix);
 	void	onWhitePlayerChanged(int ix);
 
@@ -37,6 +39,7 @@ protected:
 private:
     Ui::MainWindowClass *ui;
     //QTimer	m_timer;
+    //std::vector<UndoItem>	m_undoStack;			//	
     std::unique_ptr<class Board> m_board;
 };
 

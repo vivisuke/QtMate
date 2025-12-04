@@ -18,6 +18,7 @@ void Board::init() {
 	for(auto& v: m_globalBoard) v = EMPTY;
 	for(auto& v: m_isValidLB) v = true;
 	for(auto& v: m_nEmpty) v = BOARD_SIZE;
+	m_undoStack.clear();
 }
 void Board::updateIsValidLB(int x, int y) {				//	次に着手可能ローカルボードかどうかを判定
 	int ix = (y%BOARD_WD)*BOARD_WD + (x%BOARD_WD);
@@ -30,14 +31,17 @@ void Board::updateIsValidLB(int x, int y) {				//	次に着手可能ローカル
 }
 bool Board::put_color(int x, int y, Color col) {
 	bool won = false;
+	UndoItem ui(x, y);
 	set_color(x, y, col);
 	m_nEmpty[(y/3)*3 + x/3] -= 1;
-	if( isThree(x, y, col) ) {
+	if( get_colorGB(x/3, y/3) == EMPTY && isThree(x, y, col) ) {
+		ui.m_gbChanged = true;
 		set_colorGB(x/3, y/3, col);
 		won = isThreeGB(x/3, y/3, col);
 		if( won )
 			m_winner = col;
 	}
+	m_undoStack.push_back(ui);
 	updateIsValidLB(x, y);
 	return won;
 }
@@ -180,6 +184,19 @@ int Board::eval(Color col) const {		//	col から見た評価値を返す
 	ev += evalLineGB(BOARD_WD*2, -BOARD_WD+1);
 	//	undone: 勝敗がついた場合、空欄数を考慮
 	return col == BLACK ? ev : -ev;
+}
+bool Board::canUndo() const {
+	return !m_undoStack.is_empty();
+}
+void Board::do_undo() {
+	if( m_undoStack.is_empty() ) return;
+	UndoItem ui = m_undoStack.back();
+	m_undoStack.pop_back();
+	set_color(ui.m_x, ui.m_y, EMPTY);
+	m_nEmpty[(ui.m_y/3)*3 + (ui.m_x/3)] += 1;
+	if( ui.m_gbChanged ) {
+		set_colorGB(ui.m_x/3, ui.m_y/3, EMPTY);
+	}
 }
 void Board::swapBW() {		//	盤面黒白反転
 	for(auto& v: m_localBoard) v = -v;
