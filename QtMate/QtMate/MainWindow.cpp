@@ -75,7 +75,7 @@ void MainWindow::do_put(int x, int y) {
 	} else {
 		g.m_next = BLACK+WHITE - g.m_next;
 	}
-	auto ev = m_board->eval();
+	auto ev = -m_board->eval(g.m_next);
 	qDebug() << "eval = " << ev;
 	ui->statusBar->showMessage(QString("eval = %1").arg(ev));
 	g.m_lastX = x;

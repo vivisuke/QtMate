@@ -135,8 +135,9 @@ int Board::evalLineGB(int ix, int d) const {
     else
     	return -scores[whiteCount];
 }
-int Board::eval() const {		//	先手から見た評価値を返す
+int Board::eval(Color col) const {		//	col から見た評価値を返す
 	int ev = 0;
+	//	まず先手がわからみた評価値を計算し、最後に col からみた評価値に変換
 	//	ローカルボード評価
 	for(int y = 0; y < 3; ++y) {
 		for(int x = 0; x < 3; ++x) {
@@ -159,5 +160,5 @@ int Board::eval() const {		//	先手から見た評価値を返す
 	ev += evalLineGB(0, BOARD_WD+1);
 	ev += evalLineGB(BOARD_WD*2, -BOARD_WD+1);
 	//	undone: 勝敗がついた場合、空欄数を考慮
-	return ev;
+	return col == BLACK ? ev : -ev;
 }

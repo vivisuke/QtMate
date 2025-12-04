@@ -53,7 +53,7 @@ public:
 	void	set_color(int x, int y, Color col) { m_localBoard[y*BOARD9_WD + x] = col; }
 	void	set_colorGB(int x, int y, Color col) { m_globalBoard[y*BOARD_WD + x] = col; }
 	void	updateIsValidLB(int x, int y);
-	int		eval() const;		//	先手から見た評価値を返す
+	int		eval(Color col) const;		//	引数側から見た評価値を返す
 
 	int		sel_moveRandom() const;
 
