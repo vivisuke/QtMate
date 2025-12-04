@@ -43,8 +43,9 @@ void BoardWidget::paintEvent(QPaintEvent* event)
     painter.fillRect(QRect(0, 0, ww, wh), Qt::black);
     painter.fillRect(QRect(24, 24, 48*9, 48*9), QColor("#f0f0f0"));
     //	直前着手位置強調
-    if( g.m_lastX >= 0 ) {
-    	QRect r(xyToPoint(g.m_lastX, g.m_lastY), QSize(CELL_WD, CELL_WD));
+    int lastX = m_board->get_lastX();
+    if( lastX >= 0 ) {
+    	QRect r(xyToPoint(lastX, m_board->get_lastY()), QSize(CELL_WD, CELL_WD));
     	painter.fillRect(r, QColor("#fc9db8"));
     }
     //	グリッド描画

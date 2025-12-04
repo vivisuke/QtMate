@@ -185,6 +185,14 @@ int Board::eval(Color col) const {		//	col から見た評価値を返す
 	//	undone: 勝敗がついた場合、空欄数を考慮
 	return col == BLACK ? ev : -ev;
 }
+int Board::get_lastX() const {
+	if( m_undoStack.is_empty() ) return -1;
+	return m_undoStack.back().m_x;
+}
+int Board::get_lastY() const {
+	if( m_undoStack.is_empty() ) return -1;
+	return m_undoStack.back().m_y;
+}
 bool Board::canUndo() const {
 	return !m_undoStack.is_empty();
 }

@@ -79,8 +79,8 @@ void MainWindow::do_put(int x, int y) {
 	auto ev = -m_board->eval(g.m_next);
 	qDebug() << "eval = " << ev;
 	ui->statusBar->showMessage(QString("eval = %1").arg(ev));
-	g.m_lastX = x;
-	g.m_lastY = y;
+	//g.m_lastX = x;
+	//g.m_lastY = y;
 	updateNextColor();
 	ui->board->update();
 	if( g.m_isGameActive )

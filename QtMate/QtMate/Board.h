@@ -21,13 +21,13 @@ struct Global {
 	//Color	m_winner = EMPTY;		//	勝者
 	int		m_blackPlayer = 0;
 	int		m_whitePlayer = 0;
-	int		m_lastX = -1;			//	直前着手位置
-	int		m_lastY = -1;			//	直前着手位置
+	//int		m_lastX = -1;			//	直前着手位置
+	//int		m_lastY = -1;			//	直前着手位置
 public:
 	void	init() {
 		m_next = BLACK;
 		//m_winner = EMPTY;
-		m_lastX = m_lastY = -1;
+		//m_lastX = m_lastY = -1;
 	}
 };
 
@@ -75,6 +75,8 @@ public:
 	void	set_color(int x, int y, Color col) { m_localBoard[y*BOARD9_WD + x] = col; }
 	void	set_colorGB(int x, int y, Color col) { m_globalBoard[y*BOARD_WD + x] = col; }
 	void	updateIsValidLB(int x, int y);
+	int		get_lastX() const;
+	int		get_lastY() const;
 	bool	canUndo() const;
 	void	do_undo();
 	int		eval(Color col) const;		//	引数側から見た評価値を返す
