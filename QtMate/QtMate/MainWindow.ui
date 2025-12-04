@@ -14,11 +14,14 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">color: #80c080</string>
+   <string notr="true"/>
   </property>
   <widget class="CentralWidget" name="centralWidget">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <property name="styleSheet">
-    <string notr="true">color: #80c080;</string>
+    <string notr="true">background-color: #80c080</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="leftMargin">
