@@ -2,7 +2,7 @@
 #include <iostream>
 
 enum {
-	EMPTY = 0, BLACK, WHITE,
+	EMPTY = 0, BLACK = 1, WHITE = -BLACK,
 	HUMAN = 0, RANDOM_AI,
 };
 
