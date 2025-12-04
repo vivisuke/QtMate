@@ -79,6 +79,25 @@ int Board::sel_moveRandom() const {
 	if( lst.is_empty() ) return -1;
 	return lst[rgen() % lst.size()];
 }
+int Board::sel_moveAB(Color col) {
+	vector<int> lst;
+	for(int y = 0; y < BOARD9_WD; ++y) {
+		for(int x = 0; x < BOARD9_WD; ++x) {
+			if( m_isValidLB[(y/3)*BOARD_WD + (x/3)] && get_color(x, y) == EMPTY ) {
+				lst.push_back(y * BOARD9_WD + x);
+			}
+		}
+	}
+	if( lst.is_empty() ) return -1;
+	Board bd(*this);
+	if( col == WHITE ) bd.swapBW();
+	int maxev = -99999;
+	int bestix = -1;
+	for(auto ix: lst) {
+	}
+	//if( col == WHITE ) bd.swapBW();
+	return bestix;
+}
 #if 0
 int evaluateLine(int c1, int c2, int c3) {
     int blackCount = 0;
@@ -161,4 +180,8 @@ int Board::eval(Color col) const {		//	col から見た評価値を返す
 	ev += evalLineGB(BOARD_WD*2, -BOARD_WD+1);
 	//	undone: 勝敗がついた場合、空欄数を考慮
 	return col == BLACK ? ev : -ev;
+}
+void Board::swapBW() {		//	盤面黒白反転
+	for(auto& v: m_localBoard) v = -v;
+	for(auto& v: m_globalBoard) v = -v;
 }

@@ -38,6 +38,17 @@ public:
 		std::cout << "Board::Board()" << std::endl;
 		init();
 	}
+	// コピーコンストラクタ
+    Board(const Board& other)
+        : m_winner(other.m_winner)
+        , m_emptyGB(other.m_emptyGB)
+    {
+        // 固定サイズ配列は std::copy かループでコピー
+        std::copy(std::begin(other.m_localBoard), std::end(other.m_localBoard), std::begin(m_localBoard));
+        std::copy(std::begin(other.m_globalBoard), std::end(other.m_globalBoard), std::begin(m_globalBoard));
+        std::copy(std::begin(other.m_nEmpty), std::end(other.m_nEmpty), std::begin(m_nEmpty));
+        std::copy(std::begin(other.m_isValidLB), std::end(other.m_isValidLB), std::begin(m_isValidLB));
+    }
 	~Board() {
 		std::cout << "Board::~Board()" << std::endl;
 	}
@@ -54,8 +65,10 @@ public:
 	void	set_colorGB(int x, int y, Color col) { m_globalBoard[y*BOARD_WD + x] = col; }
 	void	updateIsValidLB(int x, int y);
 	int		eval(Color col) const;		//	引数側から見た評価値を返す
+	void	swapBW();					//	盤面黒白反転
 
 	int		sel_moveRandom() const;
+	int		sel_moveAB(Color col);
 
 protected:
 	int		evalLine(int ix, int d) const;		//	ローカルボードの１ライン評価
