@@ -16,17 +16,19 @@ void Board::init() {
 	m_emptyGB = 9;
 	for(auto& v: m_localBoard) v = EMPTY;
 	for(auto& v: m_globalBoard) v = EMPTY;
-	for(auto& v: m_isValidLB) v = true;
+	//for(auto& v: m_isValidLB) v = true;
 	for(auto& v: m_nEmpty) v = BOARD_SIZE;
 	m_undoStack.clear();
 }
 void Board::updateIsValidLB(int x, int y) {				//	次に着手可能ローカルボードかどうかを判定
 	int ix = (y%BOARD_WD)*BOARD_WD + (x%BOARD_WD);
 	if( m_globalBoard[ix] == EMPTY && m_nEmpty[ix] != 0 ) {
-		for(auto& v: m_isValidLB) v = false;
-		m_isValidLB[ix] = true;
+		//for(auto& v: m_isValidLB) v = false;
+		//m_isValidLB[ix] = true;
+		m_forcedLB = ix;
 	} else {
-		for(auto& v: m_isValidLB) v = true;
+		//for(auto& v: m_isValidLB) v = true;
+		m_forcedLB = -1;
 	}
 }
 bool Board::put_color(int x, int y, Color col) {
@@ -75,7 +77,7 @@ int Board::sel_moveRandom() const {
 	vector<int> lst;
 	for(int y = 0; y < BOARD9_WD; ++y) {
 		for(int x = 0; x < BOARD9_WD; ++x) {
-			if( m_isValidLB[(y/3)*BOARD_WD + (x/3)] && get_color(x, y) == EMPTY ) {
+			if( isValidLB(y/3, x/3) && get_color(x, y) == EMPTY ) {
 				lst.push_back(y * BOARD9_WD + x);
 			}
 		}
@@ -87,7 +89,7 @@ int Board::sel_moveAB(Color col) {
 	vector<int> lst;
 	for(int y = 0; y < BOARD9_WD; ++y) {
 		for(int x = 0; x < BOARD9_WD; ++x) {
-			if( m_isValidLB[(y/3)*BOARD_WD + (x/3)] && get_color(x, y) == EMPTY ) {
+			if( isValidLB(y/3, x/3) && get_color(x, y) == EMPTY ) {
 				lst.push_back(y * BOARD9_WD + x);
 			}
 		}

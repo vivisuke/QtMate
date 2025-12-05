@@ -53,12 +53,13 @@ public:
     Board(const Board& other)
         : m_winner(other.m_winner)
         , m_emptyGB(other.m_emptyGB)
+        , m_forcedLB(other.m_forcedLB)
     {
         // 固定サイズ配列は std::copy かループでコピー
         std::copy(std::begin(other.m_localBoard), std::end(other.m_localBoard), std::begin(m_localBoard));
         std::copy(std::begin(other.m_globalBoard), std::end(other.m_globalBoard), std::begin(m_globalBoard));
         std::copy(std::begin(other.m_nEmpty), std::end(other.m_nEmpty), std::begin(m_nEmpty));
-        std::copy(std::begin(other.m_isValidLB), std::end(other.m_isValidLB), std::begin(m_isValidLB));
+        //std::copy(std::begin(other.m_isValidLB), std::end(other.m_isValidLB), std::begin(m_isValidLB));
     }
 	~Board() {
 		std::cout << "Board::~Board()" << std::endl;
@@ -69,7 +70,7 @@ public:
 	bool	put_color(int x, int y, Color col);			//	return: col の勝利か？
 	Color	get_color(int x, int y) const { return m_localBoard[y*BOARD9_WD + x]; }
 	Color	get_colorGB(int x, int y) const { return m_globalBoard[y*BOARD_WD + x]; }
-	bool	isValidLB(int x, int y) const { return m_isValidLB[y*BOARD_WD + x]; }
+	bool	isValidLB(int gx, int gy) const { return m_forcedLB < 0 || m_forcedLB == gy*BOARD_WD + gx; }
 	bool	isThree(int x, int y, Color col) const;			//	三目並んだか？
 	bool	isThreeGB(int gx, int gy, Color col) const;		//	Global Board で三目並んだか？
 	void	set_color(int x, int y, Color col) { m_localBoard[y*BOARD9_WD + x] = col; }
@@ -92,10 +93,11 @@ protected:
 private:
 	Color	m_winner = EMPTY;		//	勝者
 	int		m_emptyGB = 9;			//	グローバルボード空セル数
+	int		m_forcedLB = -1;				//	-1 for 全LB、>= 0 for そのローカルボードのみ着手可能
 	Color	m_localBoard[BOARD9_SIZE];
 	Color	m_globalBoard[BOARD_SIZE];
 	uchar	m_nEmpty[BOARD_SIZE];			//	各ローカルボード空欄数
-	bool	m_isValidLB[BOARD_SIZE];		//	各ローカルボードに着手可能か？
+	//bool	m_isValidLB[BOARD_SIZE];		//	各ローカルボードに着手可能か？
     std::vector<UndoItem>	m_undoStack;			//	
 };
 
