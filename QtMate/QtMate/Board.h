@@ -25,7 +25,9 @@ struct Global {
 	//int		m_lastY = -1;			//	直前着手位置
 public:
 	void	init() {
-		m_next = BLACK;
+		m_isGameActive = false;
+		m_thinkingAI = false;
+		//m_next = BLACK;
 		//m_winner = EMPTY;
 		//m_lastX = m_lastY = -1;
 	}
@@ -67,6 +69,7 @@ public:
 	}
 public:
 	void	init();
+	Color	get_next() const { return m_next; }
 	Color	get_winner() const { return m_winner; }
 	bool	put_color(int x, int y, Color col);			//	return: col の勝利か？
 	Color	get_color(int x, int y) const { return m_localBoard[y*BOARD9_WD + x]; }
@@ -92,6 +95,7 @@ protected:
 	int		evalLineGB(int ix, int d) const;	//	グローバルボードの１ライン評価
 
 private:
+	Color	m_next = BLACK;			//	次の手番
 	Color	m_winner = EMPTY;		//	勝者
 	int		m_emptyGB = 9;			//	グローバルボード空セル数
 	int		m_forcedLB = -1;				//	-1 for 全LB、>= 0 for そのローカルボードのみ着手可能

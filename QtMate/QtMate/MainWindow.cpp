@@ -43,7 +43,7 @@ void MainWindow::buildConnections() {
 }
 
 void MainWindow::updateNextColor() {
-	if( g.m_next == BLACK ) {
+	if( m_board->get_next()== BLACK ) {
 		ui->black->setStyleSheet("border-bottom: 6px solid yellow;");
 		ui->white->setStyleSheet("border-bottom: 6px solid transparent;");
 		ui->messLabel->setText("O's turn");
@@ -64,19 +64,17 @@ void MainWindow::onCellClicked(int x, int y) {
 		return;
 	if( !g.m_isGameActive )
 		return;
-	if( g.m_next == BLACK && g.m_blackPlayer == HUMAN ||
-		g.m_next == WHITE && g.m_whitePlayer == HUMAN )
+	if( m_board->get_next()== BLACK && g.m_blackPlayer == HUMAN ||
+		m_board->get_next()== WHITE && g.m_whitePlayer == HUMAN )
 	{
 		do_put(x, y);
 	}
 }
 void MainWindow::do_put(int x, int y) {
-	if( m_board->put_color(x, y, g.m_next) ) {
+	if( m_board->put_color(x, y, m_board->get_next()) ) {
 		onActionStop();		//	勝敗がついた場合
-	} else {
-		g.m_next = BLACK+WHITE - g.m_next;
 	}
-	auto ev = -m_board->eval(g.m_next);
+	auto ev = -m_board->eval(m_board->get_next());
 	qDebug() << "eval = " << ev;
 	ui->statusBar->showMessage(QString("eval = %1").arg(ev));
 	//g.m_lastX = x;
@@ -86,7 +84,7 @@ void MainWindow::do_put(int x, int y) {
 	if( g.m_isGameActive )
 		nextTurn();
 	else {
-		ui->messLabel->setText(g.m_next == BLACK ? "O won." : "X won.");
+		ui->messLabel->setText(m_board->get_next()== BLACK ? "O won." : "X won.");
 	}
 }
 void MainWindow::updateStartStopAction() {
@@ -134,16 +132,16 @@ void MainWindow::onWhitePlayerChanged(int ix) {
 	g.m_whitePlayer = ix;
 }
 void MainWindow::nextTurn() {
-	if( g.m_next == BLACK && g.m_blackPlayer == HUMAN ||
-		g.m_next == WHITE && g.m_whitePlayer == HUMAN )
+	if( m_board->get_next()== BLACK && g.m_blackPlayer == HUMAN ||
+		m_board->get_next()== WHITE && g.m_whitePlayer == HUMAN )
 	{
 		return;
 	}
 	QTimer::singleShot(100, this, &MainWindow::proceedTurn);
 }
 void MainWindow::proceedTurn() {
-	if( g.m_next == BLACK && g.m_blackPlayer == HUMAN ||
-		g.m_next == WHITE && g.m_whitePlayer == HUMAN )
+	if( m_board->get_next()== BLACK && g.m_blackPlayer == HUMAN ||
+		m_board->get_next()== WHITE && g.m_whitePlayer == HUMAN )
 	{
 		return;
 	}
