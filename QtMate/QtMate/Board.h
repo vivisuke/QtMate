@@ -3,7 +3,7 @@
 
 enum {
 	EMPTY = 0, BLACK = 1, WHITE = -BLACK,
-	HUMAN = 0, RANDOM_AI,
+	HUMAN = 0, RANDOM_AI, DEPTH_1,
 };
 
 const int BOARD_WD = 3;
@@ -88,7 +88,7 @@ public:
 	void	swapBW();					//	盤面黒白反転
 
 	int		sel_moveRandom() const;
-	int		sel_moveAB(Color col);
+	int		sel_moveAB(Color col, int depth);
 
 protected:
 	int		evalLine(int ix, int d) const;		//	ローカルボードの１ライン評価

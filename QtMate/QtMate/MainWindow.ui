@@ -109,6 +109,11 @@
               <string>Randam AI</string>
              </property>
             </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 1</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item>
@@ -189,6 +194,11 @@
             <item>
              <property name="text">
               <string>Random AI</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 1</string>
              </property>
             </item>
            </widget>

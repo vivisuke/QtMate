@@ -140,12 +140,15 @@ void MainWindow::nextTurn() {
 	QTimer::singleShot(100, this, &MainWindow::proceedTurn);
 }
 void MainWindow::proceedTurn() {
-	if( m_board->get_next()== BLACK && g.m_blackPlayer == HUMAN ||
-		m_board->get_next()== WHITE && g.m_whitePlayer == HUMAN )
-	{
+	auto player = m_board->get_next()== BLACK ? g.m_blackPlayer : g.m_whitePlayer;
+	if( player == HUMAN )
 		return;
+	int ix = -1;
+	if( player == RANDOM_AI )
+		ix = m_board->sel_moveRandom();
+	else {
+		ix = m_board->sel_moveAB(m_board->get_next(), player - DEPTH_1 + 1);
 	}
-	auto ix = m_board->sel_moveRandom();
 	if( ix < 0 ) {
 		return;
 	}

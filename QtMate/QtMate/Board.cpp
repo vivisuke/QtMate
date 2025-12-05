@@ -13,8 +13,9 @@ static std::mt19937 rgen(rd());
 
 void Board::init() {
 	m_next = BLACK;
+	m_forcedLB = -1;
 	m_winner = EMPTY;
-	m_emptyGB = 9;
+	m_emptyGB = BOARD_SIZE;
 	for(auto& v: m_localBoard) v = EMPTY;
 	for(auto& v: m_globalBoard) v = EMPTY;
 	//for(auto& v: m_isValidLB) v = true;
@@ -89,7 +90,7 @@ int Board::sel_moveRandom() const {
 	if( lst.is_empty() ) return -1;
 	return lst[rgen() % lst.size()];
 }
-int Board::sel_moveAB(Color col) {
+int Board::sel_moveAB(Color col, int depth) {
 	vector<int> lst;
 	for(int y = 0; y < BOARD9_WD; ++y) {
 		for(int x = 0; x < BOARD9_WD; ++x) {
@@ -104,6 +105,13 @@ int Board::sel_moveAB(Color col) {
 	int maxev = -99999;
 	int bestix = -1;
 	for(auto ix: lst) {
+		bd.put_color(ix/BOARD9_WD, ix%BOARD9_WD, col);
+		int ev = bd.eval(col);
+		bd.do_undo();
+		if( ev > maxev ) {
+			maxev = ev;
+			bestix = ix;
+		}
 	}
 	//if( col == WHITE ) bd.swapBW();
 	return bestix;
