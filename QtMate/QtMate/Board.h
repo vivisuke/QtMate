@@ -34,10 +34,11 @@ public:
 struct UndoItem {
 	int		m_x = 0;			//	着手位置
 	int		m_y = 0;
+	int		m_forcedLB = -1;
 	bool	m_gbChanged = false;	//	グローバルボードに石を打った
 public:
-	UndoItem(int x, int y=0, bool gbChanged = false)
-		: m_x(x), m_y(y), m_gbChanged(gbChanged)
+	UndoItem(int x, int y=0, bool gbChanged = false, int forcedLB = -1)
+		: m_x(x), m_y(y), m_gbChanged(gbChanged), m_forcedLB(forcedLB)
 	{
 	}
 };

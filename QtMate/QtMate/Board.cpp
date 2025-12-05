@@ -43,8 +43,9 @@ bool Board::put_color(int x, int y, Color col) {
 		if( won )
 			m_winner = col;
 	}
-	m_undoStack.push_back(ui);
 	updateIsValidLB(x, y);
+	ui.m_forcedLB = m_forcedLB;
+	m_undoStack.push_back(ui);
 	return won;
 }
 bool Board::isThree(int x, int y, Color col) const {
@@ -204,6 +205,7 @@ void Board::do_undo() {
 	m_undoStack.pop_back();
 	set_color(ui.m_x, ui.m_y, EMPTY);
 	m_nEmpty[(ui.m_y/3)*3 + (ui.m_x/3)] += 1;
+	m_forcedLB = ui.m_forcedLB;
 	if( ui.m_gbChanged ) {
 		set_colorGB(ui.m_x/3, ui.m_y/3, EMPTY);
 	}
