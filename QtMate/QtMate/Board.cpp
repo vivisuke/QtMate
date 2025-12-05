@@ -1,6 +1,7 @@
 ﻿#include <vector>
 #include <random>
 #include "Board.h"
+#include <QDebug>
 
 using namespace std;
 
@@ -82,7 +83,7 @@ int Board::sel_moveRandom() const {
 	vector<int> lst;
 	for(int y = 0; y < BOARD9_WD; ++y) {
 		for(int x = 0; x < BOARD9_WD; ++x) {
-			if( isValidLB(y/3, x/3) && get_color(x, y) == EMPTY ) {
+			if( isValidLB(x/3, y/3) && get_color(x, y) == EMPTY ) {
 				lst.push_back(y * BOARD9_WD + x);
 			}
 		}
@@ -94,19 +95,20 @@ int Board::sel_moveAB(Color col, int depth) {
 	vector<int> lst;
 	for(int y = 0; y < BOARD9_WD; ++y) {
 		for(int x = 0; x < BOARD9_WD; ++x) {
-			if( isValidLB(y/3, x/3) && get_color(x, y) == EMPTY ) {
+			if( isValidLB(x/3, y/3) && get_color(x, y) == EMPTY ) {
 				lst.push_back(y * BOARD9_WD + x);
 			}
 		}
 	}
 	if( lst.is_empty() ) return -1;
 	Board bd(*this);
-	if( col == WHITE ) bd.swapBW();
+	//if( col == WHITE ) bd.swapBW();
 	int maxev = -99999;
 	int bestix = -1;
 	for(auto ix: lst) {
-		bd.put_color(ix/BOARD9_WD, ix%BOARD9_WD, col);
+		bd.put_color(ix%BOARD9_WD, ix/BOARD9_WD, col);
 		int ev = bd.eval(col);
+		qDebug() << "ix = " << ix << ", eval = " << ev;
 		bd.do_undo();
 		if( ev > maxev ) {
 			maxev = ev;
