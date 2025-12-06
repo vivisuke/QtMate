@@ -61,7 +61,7 @@ public:
         // 固定サイズ配列は std::copy かループでコピー
         std::copy(std::begin(other.m_localBoard), std::end(other.m_localBoard), std::begin(m_localBoard));
         std::copy(std::begin(other.m_globalBoard), std::end(other.m_globalBoard), std::begin(m_globalBoard));
-        std::copy(std::begin(other.m_nEmpty), std::end(other.m_nEmpty), std::begin(m_nEmpty));
+        std::copy(std::begin(other.m_nEmptyLB), std::end(other.m_nEmptyLB), std::begin(m_nEmptyLB));
         //std::copy(std::begin(other.m_isValidLB), std::end(other.m_isValidLB), std::begin(m_isValidLB));
     }
 	~Board() {
@@ -71,6 +71,7 @@ public:
 	void	init();
 	Color	get_next() const { return m_next; }
 	Color	get_winner() const { return m_winner; }
+	int		get_nEmpty() const;
 	bool	put_color(int x, int y, Color col);			//	return: col の勝利か？
 	Color	get_color(int x, int y) const { return m_localBoard[y*BOARD9_WD + x]; }
 	Color	get_colorGB(int x, int y) const { return m_globalBoard[y*BOARD_WD + x]; }
@@ -101,7 +102,7 @@ private:
 	int		m_forcedLB = -1;				//	-1 for 全LB、>= 0 for そのローカルボードのみ着手可能
 	Color	m_localBoard[BOARD9_SIZE];
 	Color	m_globalBoard[BOARD_SIZE];
-	uchar	m_nEmpty[BOARD_SIZE];			//	各ローカルボード空欄数
+	uchar	m_nEmptyLB[BOARD_SIZE];			//	各ローカルボード空欄数
 	//bool	m_isValidLB[BOARD_SIZE];		//	各ローカルボードに着手可能か？
     std::vector<UndoItem>	m_undoStack;			//	
 };
