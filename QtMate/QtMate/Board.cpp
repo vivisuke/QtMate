@@ -79,27 +79,51 @@ bool Board::isThreeGB(int gx, int gy, Color col) const {
 		return true;
 	return false;
 }
-int Board::sel_moveRandom() const {
-	vector<int> lst;
-	for(int y = 0; y < BOARD9_WD; ++y) {
-		for(int x = 0; x < BOARD9_WD; ++x) {
-			if( isValidLB(x/3, y/3) && get_color(x, y) == EMPTY ) {
-				lst.push_back(y * BOARD9_WD + x);
+void Board::get_leagalMoves(std::vector<int>& lst) const {	//	可能着手箇所取得
+	lst.clear();
+	if( m_forcedLB < 0 ) {
+		for(int y = 0; y < BOARD9_WD; ++y) {
+			for(int x = 0; x < BOARD9_WD; ++x) {
+				if( get_color(x, y) == EMPTY ) {
+					lst.push_back(y * BOARD9_WD + x);
+				}
+			}
+		}
+	} else {		//	矯正ローカルボードがある場合
+		int x0 = (m_forcedLB % BOARD_WD) * 3;
+		int y0 = (m_forcedLB / BOARD_WD) * 3;
+		for(int v = 0; v < 3; ++v) {
+			for(int h = 0; h < 3; ++h) {
+				if( get_color(x0+h, y0+v) == EMPTY ) {
+					lst.push_back((y0+v) * BOARD9_WD + (x0+h));
+				}
 			}
 		}
 	}
+}
+int Board::sel_moveRandom() const {
+	vector<int> lst;
+	get_leagalMoves(lst);
+	//for(int y = 0; y < BOARD9_WD; ++y) {
+	//	for(int x = 0; x < BOARD9_WD; ++x) {
+	//		if( isValidLB(x/3, y/3) && get_color(x, y) == EMPTY ) {
+	//			lst.push_back(y * BOARD9_WD + x);
+	//		}
+	//	}
+	//}
 	if( lst.is_empty() ) return -1;
 	return lst[rgen() % lst.size()];
 }
 int Board::sel_moveAB(Color col, int depth) {
 	vector<int> lst;
-	for(int y = 0; y < BOARD9_WD; ++y) {
-		for(int x = 0; x < BOARD9_WD; ++x) {
-			if( isValidLB(x/3, y/3) && get_color(x, y) == EMPTY ) {
-				lst.push_back(y * BOARD9_WD + x);
-			}
-		}
-	}
+	get_leagalMoves(lst);
+	//for(int y = 0; y < BOARD9_WD; ++y) {
+	//	for(int x = 0; x < BOARD9_WD; ++x) {
+	//		if( isValidLB(x/3, y/3) && get_color(x, y) == EMPTY ) {
+	//			lst.push_back(y * BOARD9_WD + x);
+	//		}
+	//	}
+	//}
 	if( lst.is_empty() ) return -1;
 	Board bd(*this);
 	//if( col == WHITE ) bd.swapBW();

@@ -87,9 +87,11 @@ public:
 	void	do_undo();
 	int		eval(Color col) const;		//	引数側から見た評価値を返す
 	void	swapBW();					//	盤面黒白反転
+	void	get_leagalMoves(std::vector<int>&) const;	//	可能着手箇所取得
 
 	int		sel_moveRandom() const;
 	int		sel_moveAB(Color col, int depth);
+	int		nega_alpha(Color col, int alpha, int beta, int depth);
 
 protected:
 	int		evalLine(int ix, int d) const;		//	ローカルボードの１ライン評価
