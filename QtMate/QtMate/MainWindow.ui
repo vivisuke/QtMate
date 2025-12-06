@@ -114,6 +114,31 @@
               <string>AI Depth 1</string>
              </property>
             </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 2</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 6</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item>
@@ -199,6 +224,31 @@
             <item>
              <property name="text">
               <string>AI Depth 1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 2</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>AI Depth 6</string>
              </property>
             </item>
            </widget>

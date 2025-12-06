@@ -125,22 +125,41 @@ int Board::sel_moveAB(Color col, int depth) {
 	//	}
 	//}
 	if( lst.is_empty() ) return -1;
+	shuffle(lst.begin(), lst.end(), rgen);
 	Board bd(*this);
 	//if( col == WHITE ) bd.swapBW();
-	int maxev = -99999;
+	int alpha = -99999;
+	int beta = 99999;
 	int bestix = -1;
 	for(auto ix: lst) {
 		bd.put_color(ix%BOARD9_WD, ix/BOARD9_WD, col);
-		int ev = bd.eval(col);
+		//int ev = bd.eval(col);
+		int ev = -bd.nega_alpha(-col, -beta, -alpha, depth-1);
 		qDebug() << "ix = " << ix << ", eval = " << ev;
 		bd.do_undo();
-		if( ev > maxev ) {
-			maxev = ev;
+		if( ev > alpha ) {
+			alpha = ev;
 			bestix = ix;
 		}
 	}
 	//if( col == WHITE ) bd.swapBW();
 	return bestix;
+}
+int Board::nega_alpha(Color col, int alpha, int beta, int depth) {
+	if( depth == 0 )
+		return eval(col);
+	vector<int> lst;
+	get_leagalMoves(lst);
+	if( lst.is_empty() ) return -1;
+	for(auto ix: lst) {
+		put_color(ix%BOARD9_WD, ix/BOARD9_WD, col);
+		alpha = std::max(alpha, -nega_alpha(-col, -beta, -alpha, depth-1));
+		do_undo();
+		if( alpha >= beta ) {
+			break;
+		}
+	}
+	return alpha;
 }
 #if 0
 int evaluateLine(int c1, int c2, int c3) {
